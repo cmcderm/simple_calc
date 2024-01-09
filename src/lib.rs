@@ -1,6 +1,12 @@
 /*
 Implement a basic calculator that interprets an equation
 given as a string.
+
+Ex: "3 + 5 / 2" equates to 5.5
+
+Original test was using integer math, I chose to use floats.
+Input is integers only because the tokenizing is very dumb.
+
 Operators (+, -, *, /)
 
 Don't forget PE(MDAS)!
@@ -34,6 +40,7 @@ fn tokenize(equation: &str) -> Vec<Token> {
         })
         .collect();
 
+    // Regretted using iteration by character when I realized some numbers have two digits...
     let mut i: usize = 0;
     while i < tokens.len() - 1 {
         if let Some(Token::Value(d)) = tokens.get(i) {
@@ -121,5 +128,11 @@ mod tests {
     fn test_add_and_mult() {
         let res = calculate("1+1+1+1+1+1+1+1+1*10");
         assert_eq!(res, 18.0);
+    }
+
+    #[test]
+    fn test_float_error() {
+        let res = calculate("1 / 10 + 2 / 10");
+        assert_eq!(0.1 + 0.2, res); // Noooo this fails
     }
 }
