@@ -89,6 +89,7 @@ fn calc_next_op(tokens: &mut Vec<Token>) {
                 tokens.remove(op_pos - 1);
 
                 tokens.insert(op_pos - 1, result);
+                break;
             }
         }
     }
@@ -133,6 +134,6 @@ mod tests {
     #[test]
     fn test_float_error() {
         let res = calculate("1 / 10 + 2 / 10");
-        assert_eq!(0.1 + 0.2, res); // Noooo this fails
+        assert_eq!(0.1 + 0.2, res);
     }
 }
